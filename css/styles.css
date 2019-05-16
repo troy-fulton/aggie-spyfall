@@ -1,0 +1,57 @@
+
+
+#screen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.row {
+  width: 100vw;
+  margin: 0;
+  padding: 0 5px;
+}
+
+#info-container {
+  margin: 0 auto;
+  border: 2px solid #e5cbb7;
+  position: relative;
+  padding: 30px 20px 20px 20px;
+  z-index:1;
+  width: 85%;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+#info-container:hover {
+  cursor: pointer;
+}
+
+#info-help {
+  font-size: 10px;
+  position: absolute;
+  top: 2%;
+  left:2%;
+}
+
+#info-help-pc {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  #info-container {
+    height: 100px;
+    width: 50%;
+  }
+  #info-help-pc {
+    display: block;
+    font-size: 10px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  }
+}
