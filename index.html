@@ -3,42 +3,185 @@
   <head>
     <meta charset="utf-8">
     <title>Spyfall</title>
+    <link rel="shortcut icon" type="image/png" href="img/spy.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/start.css">
+    <link rel="stylesheet" href="css/wait.css">
   </head>
   <body>
     <div id="screen">
-      <div class="row mt-5" id="spy-info">
+      <h6 id="screen-title">Spyfall <i class="fas fa-user-secret"></i>
+        <br>By Jacob Zhang</h6>
+      <div class="row rowWide mt-5" id="spy-info">
         <!--
           displays role & location
         -->
         <div class="text-center" id="info-container">
             <p id="info-help">Double click to hide</p>
             <p id="info-help-pc">Space to hide</p>
-            <h5 id="spy-role">You are the spy</h5>
+          <h5><span id="spy-roleS">You are </span>
+            <b><span id="spy-role">Basdellatrix ljjjjjjestrange</span></b>
+          </h5>
             <h6 id="spy-location">Hotel</h6>  
         </div>
 
       </div>
-      <div class="row" id="spy-HUD">
+      <div class="row rowWide" id="spy-HUD">
         <!--
           displays time
           displays players
         -->
         <div id="hud-time">
-          <h3 id="hud-time-text">8:00</h3>
-        </div>
-        <div id="hud-players">
-
+          <h3 id="hud-time-text" class="mb-3">8:00</h3>
+          <div id="hud-players" class="row mx-0">
+            <div class="col-md-6 col-sm-12 player">
+              <div>
+                 123456789012345 (You)
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 player">
+              <div>Susan</div>
+            </div>
+            <div class="col-md-6 col-sm-12 player">
+              <div>
+                Joe
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 player">
+              <div>Susan</div>
+            </div>
+            <div class="col-md-6 col-sm-12 player">
+              <div>
+                Joe
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 player">
+              <div>Susan</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row" id="spy-locations">
-
+      <div class="row rowWide" id="spy-locations">
+        <div id="locations-display">
+          Locations
+          <div class="row mx-0">
+            <div class="col-6 locationC">
+              <div>Batmobile</div>
+            </div>
+            <div class="col-6 locationC">
+              <div>Batmobile</div>
+            </div>
+            <div class="col-6 locationC">
+              <div>Batmobile</div>
+            </div>
+            <div class="col-6 locationC">
+              <div>Batmobile</div>
+            </div>
+            <div class="col-6 locationC">
+              <div>Batmobile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row rowWide my-5" id="spy-options">
+          <div style="margin: 0 auto;">
+            <button id="end-game-button" class="spy-option-button">End Game</button>
+            <button id="leave-game-button" class="spy-option-button">Leave Game</button>
+          </div>
       </div>
     </div>
 
+    <div id="start">
+      <h3 id="start-title">Spyfall <i class="fas fa-user-secret"></i>
+        <br>By Jacob Zhang</h3>
+      <div id="start-buttons">
+        <button id="start-create" class="start-button">New Game</button>
+        <button id="start-join" class="start-button">Join Game</button>
+      </div>
+      <div id="start-join-display">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" aria-label="Large" id="start-join-roomid"
+                 aria-describedby="inputGroup-sizing-sm" placeholder="Room ID" maxlength="4">
+        </div>
+        <div class="input-group mt-4">
+          <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                 placeholder="Name" maxlength="15" id="start-join-name">
+        </div>
+        <div id="start-join-button" class="row mt-5">
+          <div class="col-6">
+            <button class="button-1" id="start-join-game-button">
+              Join
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="button-1 start-back-button">
+              Back
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="start-create-display">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" aria-label="Large" id="start-create-roomid"
+                 aria-describedby="inputGroup-sizing-sm" placeholder="Create Room ID" maxlength="4">
+        </div>
+        <div class="input-group mt-4">
+          <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                 placeholder="Name" maxlength="15" id="start-create-name">
+        </div>
+        <div id="start-create-button" class="row mt-5">
+          <div class="col-6">
+            <button class="button-1" id="start-create-game-button">
+              Create
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="button-1 start-back-button">
+              Back
+            </button>
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <div id="waiting-room">
+      <div id="waiting-display">
+        <h1>Players</h1>
+        <h5>Room ID:
+          <b><span id="wait-roomCode"></span></b>
+        </h5>
+        <ol class="row mt-3" id="waiting-player-list">
+          <li class="col-12 waiting-player">
+            asf (You)
+            <span class="editName">
+              <i class="fas fa-pencil-alt"></i>
+            </span>
+          </li>
+          <li class="col-12 waiting-player">
+            asf
+            <span class="editName">
+              <i class="fas fa-times"></i>
+            </span>
+          </li>
+        </ol>
+        <div id="waiting-buttons" class="row mt-5">
+          <div class="col-6">
+            <button class="button-1" id="startButton">
+              Start
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="button-1" id="leaveButton">
+              Leave
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -46,5 +189,7 @@
     <script src="js/main.js"></script>
     <script src="js/hudHandler.js"></script>
     <script src="js/infoHandler.js"></script>
+    <script src="js/gameUX.js"></script>
+    <script src="js/start.js"></script>
   </body>
 </html>

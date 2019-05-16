@@ -1,15 +1,65 @@
-
+* {
+  font-family: "Raleway", sans-serif;
+}
 
 #screen {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  display:none;
 }
 
-.row {
+.rowWide {
   width: 100vw;
   margin: 0;
   padding: 0 5px;
+}
+
+#hud-time {
+  margin: 20px auto 0 auto;
+  border: 2px solid #e5cbb7;
+  padding: 30px 10px 20px 10px;
+  position: relative;
+  z-index: 1;
+  width: 85%;
+  text-align: center;
+}
+
+#locations-display {
+  margin: 10px auto 0 auto;
+  border: 2px solid #e5cbb7;
+  padding: 0 10px 20px 10px;
+  text-align: center;
+  position: relative;
+  width: 85%;
+}
+
+.locationC {
+  text-align: center;
+  padding: 2px;
+}
+.locationC > div {
+  background-color: #f4f4f4;
+  height: 30px;
+  line-height: 30px;
+}
+
+.player {
+  text-align: center;
+  padding: 2px;
+}
+.player > div {
+  background-color: #f4f4f4;
+  height: 30px;
+  line-height: 30px;
+
+}
+
+#spy-role {
+  font-size: 16px;
+}
+#spy-location {
+  font-size: 14px;
 }
 
 #info-container {
@@ -17,14 +67,17 @@
   border: 2px solid #e5cbb7;
   position: relative;
   padding: 30px 20px 20px 20px;
-  z-index:1;
+  z-index: 1;
   width: 85%;
+}
+
+#info-container, #hud-time {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 #info-container:hover {
@@ -42,9 +95,38 @@
   display: none;
 }
 
+#screen-title {
+  position: relative;
+  top: 1%;
+  right: 2%;
+  font-size: 11px;
+  text-align: right;
+  z-index: 2;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+.strikethrough > div {
+  background-color: #e0e0e0;
+}
+
+.spy-option-button {
+  background-color: white;
+  border: 2px solid #e5cbb7;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+.spy-option-button:hover {
+  border: 2px solid gray;
+  cursor: pointer;
+}
+.spy-option-button:focus {outline:none;}
+
 @media only screen and (min-width: 600px) {
   #info-container {
-    height: 100px;
+    height: 110px;
     width: 50%;
   }
   #info-help-pc {
@@ -53,5 +135,27 @@
     position: absolute;
     top: 2%;
     right: 2%;
+  }
+
+  #hud-time {
+    width: 30%;
+  }
+  #locations-display {
+    width:30%;
+  }
+
+  #spy-role {
+    font-size: 20px;
+  }
+
+  #spy-location {
+    font-size: 18px;
+  }
+
+  #screen-title {
+    right: 5%;
+    top: 5%;
+    font-size: 15px;
+    line-height: 25px;
   }
 }

@@ -20,14 +20,17 @@ $("#info-container").on("touchend", function(e) {
     }
 });
 
-document.addEventListener("keydown", function() {
+document.addEventListener("keydown", function(e) {
+    if (e.code != "Space") return;
     hideInfo();
     document.getElementById("info-help-pc").innerText = (infoVisible)?"Space to hide":"Space to show";
 });
 
 function hideInfo() {
     infoVisible = !infoVisible;
-    document.getElementById("spy-role").innerText = (infoVisible)?"You are " + spyRole: "Hidden";
+
+    document.getElementById("spy-roleS").innerText = (infoVisible)?"You are ":"Hidden";
+    document.getElementById("spy-role").innerText = (infoVisible)?spyRole:"";
     document.getElementById("spy-location").innerText = (infoVisible)?spyLocation: "";
     document.getElementById("info-container").style.opacity = (infoVisible)?"1":"0.5";
     document.getElementById("info-help").innerText = (infoVisible)?"Double click to hide":"Double click to show";
