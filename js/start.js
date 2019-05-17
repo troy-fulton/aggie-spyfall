@@ -257,5 +257,3 @@ function leaveGame() {
 
 $("#startButton").click(startGame);
 $("#leaveButton").click(leaveGame);
-
-

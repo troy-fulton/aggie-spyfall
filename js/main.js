@@ -60,20 +60,24 @@ function displayInfo() {
 //TODO listen for a change in location. Just in case if two people press start at the same time
 
 function displayLocations() {
-    document.getElementById("spy-role").innerText = spyRole;
-    if (spyRole != "Spy") document.getElementById("spy-location").innerText = spyLocation;
-    else spyLocation = "lol u cheater";
+    rooms.doc(roomid).collection("Players").doc("player"+nameID).get().then((doc)=>{
+      spyRole = doc.data().role;
+      document.getElementById("spy-role").innerText = spyRole;
+      if (spyRole != "Spy") document.getElementById("spy-location").innerText = spyLocation;
+      else spyLocation = "lol u cheater";
 
-    hideInfo();
+      hideInfo();
 
-    var s = "";
-    if (theme=="general") {
-        for (var loc of generalLocation) {
-           s += "<div class=\"col-6 locationC\">" +
-               "<div>"+loc.location+"</div></div>"
-        }
-    }
-    document.getElementById("locations-display-row").innerHTML = s;
+      var s = "";
+      if (theme=="general") {
+          for (var loc of generalLocation) {
+             s += "<div class=\"col-6 locationC\">" +
+                 "<div>"+loc.location+"</div></div>"
+          }
+      }
+      document.getElementById("locations-display-row").innerHTML = s;
+    });
+
 }
 
 function displayPlayers() {

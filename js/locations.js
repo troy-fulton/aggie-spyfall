@@ -31,6 +31,26 @@ var generalLocation = [
         location: "Bar",
         roles: ["Drunk Person", "Bartender", "Customer", "Undercover Cop", "Thug",
         "Bouncer", "Drug Dealer", "Singer", "Entertainer"]
+    },
+    {
+      location: "Cargo Ship",
+      roles: ["Pirate", "Mechanic", "Captain", "Navigator", "Crewman", "Cook", "Engineer",
+              "Radioman", "Smuggler", "Worker"]
+    },
+    {
+      location:"Airplane",
+      roles:["First Class Passenger", "Pilot", "Flight Attendant", "Crying Baby",
+            "Old Man", "Air Marshall", "Businessman", "Smuggler", "FBI Agent", "Passenger"]
+    },
+    {
+      location: "Hotel",
+      roles: ["Maid", "Manager", "Janitor", "Receptionist", "Room Service", "Bellboy", "Businessman", "Tourist"
+            , "Cook", "Valet"]
+    },
+    {
+      location: "Construction Site",
+      roles: ["Welder", "Manager", "Bulldozer Driver", "Crane Operator", "Civilian"
+            , "Electrician", "Worker", "Architect", "Engineer", "Truck Driver"]
     }
 ];
 
@@ -74,5 +94,3 @@ function getIndexOfLocation(arr, name) {
     }
     return -1;
 }
-
-
