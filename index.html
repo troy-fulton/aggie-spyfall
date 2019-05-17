@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/start.css">
     <link rel="stylesheet" href="css/wait.css">
+
   </head>
   <body>
     <div id="screen">
@@ -23,10 +24,10 @@
         <div class="text-center" id="info-container">
             <p id="info-help">Double click to hide</p>
             <p id="info-help-pc">Space to hide</p>
-          <h5><span id="spy-roleS">You are </span>
-            <b><span id="spy-role">Basdellatrix ljjjjjjestrange</span></b>
+          <h5><span id="spy-roleS">Your role: </span>
+            <b><span id="spy-role"></span></b>
           </h5>
-            <h6 id="spy-location">Hotel</h6>  
+            <h6 id="spy-location"></h6>
         </div>
 
       </div>
@@ -38,52 +39,15 @@
         <div id="hud-time">
           <h3 id="hud-time-text" class="mb-3">8:00</h3>
           <div id="hud-players" class="row mx-0">
-            <div class="col-md-6 col-sm-12 player">
-              <div>
-                 123456789012345 (You)
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12 player">
-              <div>Susan</div>
-            </div>
-            <div class="col-md-6 col-sm-12 player">
-              <div>
-                Joe
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12 player">
-              <div>Susan</div>
-            </div>
-            <div class="col-md-6 col-sm-12 player">
-              <div>
-                Joe
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-12 player">
-              <div>Susan</div>
-            </div>
+
           </div>
         </div>
       </div>
       <div class="row rowWide" id="spy-locations">
         <div id="locations-display">
           Locations
-          <div class="row mx-0">
-            <div class="col-6 locationC">
-              <div>Batmobile</div>
-            </div>
-            <div class="col-6 locationC">
-              <div>Batmobile</div>
-            </div>
-            <div class="col-6 locationC">
-              <div>Batmobile</div>
-            </div>
-            <div class="col-6 locationC">
-              <div>Batmobile</div>
-            </div>
-            <div class="col-6 locationC">
-              <div>Batmobile</div>
-            </div>
+          <div class="row mx-0" id="locations-display-row">
+
           </div>
         </div>
       </div>
@@ -111,6 +75,9 @@
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                  placeholder="Name" maxlength="15" id="start-join-name">
         </div>
+        <h5 id="start-join-error" class="mt-3">
+
+        </h5>
         <div id="start-join-button" class="row mt-5">
           <div class="col-6">
             <button class="button-1" id="start-join-game-button">
@@ -133,6 +100,9 @@
           <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"
                  placeholder="Name" maxlength="15" id="start-create-name">
         </div>
+        <h5 id="start-create-error" class="mt-3">
+
+        </h5>
         <div id="start-create-button" class="row mt-5">
           <div class="col-6">
             <button class="button-1" id="start-create-game-button">
@@ -155,18 +125,7 @@
           <b><span id="wait-roomCode"></span></b>
         </h5>
         <ol class="row mt-3" id="waiting-player-list">
-          <li class="col-12 waiting-player">
-            asf (You)
-            <span class="editName">
-              <i class="fas fa-pencil-alt"></i>
-            </span>
-          </li>
-          <li class="col-12 waiting-player">
-            asf
-            <span class="editName">
-              <i class="fas fa-times"></i>
-            </span>
-          </li>
+
         </ol>
         <div id="waiting-buttons" class="row mt-5">
           <div class="col-6">
@@ -183,14 +142,23 @@
       </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+
+    <script src="js/firebase.js"></script>
+
+    <script src="js/locations.js"></script>
     <script src="js/main.js"></script>
     <script src="js/hudHandler.js"></script>
     <script src="js/infoHandler.js"></script>
     <script src="js/gameUX.js"></script>
     <script src="js/start.js"></script>
-    <script src="js/firebase.js"></script>
+
+
   </body>
 </html>

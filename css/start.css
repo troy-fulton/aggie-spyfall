@@ -1,4 +1,9 @@
 
+#start-create-error, #start-join-error {
+    text-align: center;
+    color: red;
+}
+
 #start-title {
     position: absolute;
     top: 6%;

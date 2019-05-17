@@ -9,6 +9,7 @@
   display:none;
 }
 
+
 .rowWide {
   width: 100vw;
   margin: 0;
@@ -46,13 +47,23 @@
 
 .player {
   text-align: center;
-  padding: 2px;
+  padding: 3px 2px;
 }
 .player > div {
   background-color: #f4f4f4;
-  height: 30px;
-  line-height: 30px;
+  height: 35px;
+  line-height: 35px;
   text-decoration: none;
+  position: relative;
+}
+
+.firstDisplay {
+  position: absolute;
+  font-size: 10px;
+  top: 3%;
+  left: 1%;
+  color:red;
+  line-height: 8px;
 }
 
 #spy-role {
@@ -71,7 +82,7 @@
   width: 85%;
 }
 
-#info-container, #hud-time {
+#info-container, #hud-time, .player, .locationC {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -138,7 +149,7 @@
   }
 
   #hud-time {
-    width: 30%;
+    width: 40%;
   }
   #locations-display {
     width:30%;

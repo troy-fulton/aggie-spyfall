@@ -11,6 +11,7 @@ function startTimer() {
     var secondsPassed = (hour-startTime.hour)*3600+(min-startTime.min)*60+(sec-startTime.sec);
 
     if (secondsPassed >= time*60) {
+
         document.getElementById("hud-time-text").innerText = "0:00";
         clearInterval(timerInterval);
     }
@@ -21,4 +22,4 @@ function startTimer() {
         + ":"+ ((sss<10)?"0"+sss:sss);
 }
 
-var timerInterval = setInterval(startTimer, 200);
+var timerInterval;

@@ -29,9 +29,10 @@ document.addEventListener("keydown", function(e) {
 function hideInfo() {
     infoVisible = !infoVisible;
 
-    document.getElementById("spy-roleS").innerText = (infoVisible)?"You are ":"Hidden";
+    document.getElementById("spy-roleS").innerText = (infoVisible)?"Your role: ":"Hidden";
     document.getElementById("spy-role").innerText = (infoVisible)?spyRole:"";
-    document.getElementById("spy-location").innerText = (infoVisible)?spyLocation: "";
+    if (spyRole != "Spy") document.getElementById("spy-location").innerHTML =
+        (infoVisible)?"Location: <b>"+spyLocation+"</b>": "";
     document.getElementById("info-container").style.opacity = (infoVisible)?"1":"0.5";
     document.getElementById("info-help").innerText = (infoVisible)?"Double click to hide":"Double click to show";
 }
