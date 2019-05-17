@@ -62,6 +62,7 @@ function displayInfo() {
 function displayLocations() {
     document.getElementById("spy-role").innerText = spyRole;
     if (spyRole != "Spy") document.getElementById("spy-location").innerText = spyLocation;
+    else spyLocation = "lol u cheater";
 
     hideInfo();
 
