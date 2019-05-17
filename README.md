@@ -1,4 +1,4 @@
-# spyfall.github.io
+# https://spyfall.github.io
 Based of the fan-made spyfall game at https://spyfall.crabhat.com/
 
 
