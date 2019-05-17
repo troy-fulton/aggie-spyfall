@@ -16,7 +16,7 @@
 
 #start-join-display, #start-create-display {
     position: absolute;
-    top: 40%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 75vw;
