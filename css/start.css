@@ -5,8 +5,7 @@
 }
 
 #start-title {
-    position: absolute;
-    top: 6%;
+    position: relative;
     font-size: 20px;
     text-align: center;
     z-index: 2;

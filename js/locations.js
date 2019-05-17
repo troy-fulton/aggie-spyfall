@@ -51,6 +51,11 @@ var generalLocation = [
       location: "Construction Site",
       roles: ["Welder", "Manager", "Bulldozer Driver", "Crane Operator", "Civilian"
             , "Electrician", "Worker", "Architect", "Engineer", "Truck Driver"]
+    },
+    {
+      location: "Gas Station",
+      roles: ["Biker", "Cyclist", "Cashier", "Customer", "Homeless Man", "Truck Driver",
+            "Police Officer", "Drug Dealer", "Stray Dog", "Taxi Driver"]
     }
 ];
 

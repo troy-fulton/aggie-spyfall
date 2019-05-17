@@ -231,15 +231,18 @@ function startGame() {
             if (col.size==1) return;
             var a = new Date();
             var l = getRandomLocation(theme);
-            rooms.doc(roomid).update({
-                firstplayer: parseInt(Math.random() * (col.size - 1)) + 1,
-                location: l,
-                starttime: {hour:a.getHours(), min:a.getMinutes(), sec:a.getSeconds()},
-                gamestart:true
-            });
             var newRoles = getRandomRoles(theme, l, col.size);
             for (var i = 1; i < col.size+1; i++) {
-                rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]});
+                if (i == col.size) {
+                  rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]}).then(()=>{
+                    rooms.doc(roomid).update({
+                        firstplayer: parseInt(Math.random() * (col.size - 1)) + 1,
+                        location: l,
+                        starttime: {hour:a.getHours(), min:a.getMinutes(), sec:a.getSeconds()},
+                        gamestart:true
+                    });
+                  });
+                } else rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]});
             }
         });
     });
