@@ -76,6 +76,7 @@ function displayLocations() {
           }
       }
       document.getElementById("locations-display-row").innerHTML = s;
+      clickableDisplay();
     });
 
 }

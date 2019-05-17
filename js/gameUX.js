@@ -8,6 +8,7 @@ function clickableDisplay() {
 
     $(".locationC").on("click", function(e) {
         e.preventDefault();
+        console.log("A");
         $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
     });
 }
