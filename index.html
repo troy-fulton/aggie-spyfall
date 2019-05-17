@@ -62,11 +62,15 @@
     <div id="start">
       <h3 id="start-title" class="mt-5">Spyfall <i class="fas fa-user-secret"></i>
         <br>By Jacob Zhang</h3>
-      <div id="start-buttons">
-        <button id="start-create" class="start-button">New Game</button>
-        <button id="start-join" class="start-button">Join Game</button>
+      <div id="start-buttons" class="mt-5 row">
+        <div class="col-md-6 col-sm-12">
+          <button id="start-create" class="start-button">New Game</button>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <button id="start-join" class="start-button">Join Game</button>
+        </div>
       </div>
-      <div id="start-join-display">
+      <div id="start-join-display" class="mt-5">
         <div class="input-group input-group-lg">
           <input type="text" class="form-control" aria-label="Large" id="start-join-roomid"
                  aria-describedby="inputGroup-sizing-sm" placeholder="Room ID" maxlength="4">
@@ -91,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div id="start-create-display">
+      <div id="start-create-display" class="mt-5">
         <div class="input-group input-group-lg">
           <input type="text" class="form-control" aria-label="Large" id="start-create-roomid"
                  aria-describedby="inputGroup-sizing-sm" placeholder="Create Room ID" maxlength="4">
@@ -115,7 +119,9 @@
             </button>
           </div>
       </div>
-    </div>
+      </div>
+    <h6 id="link-to-repo"><a href="https://github.com/spyfall" target="_blank">Link to repository</a></h6>
+
     </div>
 
     <div id="waiting-room">

@@ -51,8 +51,7 @@ function backToStart() {
     document.getElementById("start-join-name").value = "";
     document.getElementById("start-create-roomid").value = "";
     document.getElementById("start-create-name").value = "";
-    document.getElementById("start-buttons").style.display = "block";
-
+    document.getElementById("start-buttons").style.display = "flex";
 }
 
 $("#start-join").click(joinGameDisplay);
@@ -254,7 +253,7 @@ function startGame() {
 function leaveGame() {
     document.getElementById("waiting-room").style.display = "none";
     document.getElementById("start").style.display = "block";
-    document.getElementById("start-buttons").style.display = "block";
+    document.getElementById("start-buttons").style.display = "flex";
     rooms.doc(roomid).collection("Players").doc('player'+nameID).delete();
 }
 
