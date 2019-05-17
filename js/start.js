@@ -1,4 +1,35 @@
 
+document.getElementById("rule-mode").onchange = function() {
+  var mode = document.getElementById("rule-mode").value;
+  console.log(mode);
+  if (mode == "traditional") {
+    document.getElementById("rule-traditional").style.display = "block";
+    document.getElementById("rule-leader").style.display = "none";
+  } else if (mode == "leader") {
+    document.getElementById("rule-leader").style.display = "block";
+    document.getElementById("rule-traditional").style.display = "none";
+  }
+}
+
+var rulesActive = false;
+$("#rules").on("click", function(e) {
+  e.preventDefault();
+  rulesActive = true;
+  if (rulesActive) {
+    document.getElementById("rule-display").style.display = "block";
+  }
+});
+
+$("#close-rule-display").on("click", function(e) {
+  e.preventDefault();
+  rulesActive = false;
+  if (!rulesActive) {
+    document.getElementById("rule-display").style.display = "none";
+  }
+});
+
+
+
 document.getElementById("start-create-roomid").addEventListener('input', function (evt) {
     document.getElementById("start-create-error").innerText = "";
 
