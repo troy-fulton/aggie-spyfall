@@ -48,6 +48,7 @@ function displayInfo() {
             spyLocation = doc.data().location;
             theme = doc.data().theme;
             mode = doc.data().mode;
+            time = doc.data().time;
             startTime = doc.data().starttime;
 
 
@@ -88,19 +89,20 @@ function displayInfo() {
 
         });
     }).then((res)=>{
-        if (mode=="traditional") displayPlayers();
-        else if (mode=="leader") displayLeaderPlayers();
+        displayPlayers();
         displayLocations();
     });
 }
 
 //TODO listen for a change in location. Just in case if two people press start at the same time
+// for some reason, that doesn't happen
 
+//TODO remove player from HUD if they leave. create a listener for this
 function displayLocations() {
     rooms.doc(roomid).collection("Players").doc("player"+nameID).get().then((doc)=>{
       spyRole = doc.data().role;
       document.getElementById("spy-role").innerText = spyRole;
-      if (spyRole != "Spy") document.getElementById("spy-location").innerText = spyLocation;
+      if (spyRole != "Spy" && spyRole != "Leader") document.getElementById("spy-location").innerText = spyLocation;
       else {
           spyLocation = "lol u cheater";
           document.getElementById("spy-location").innerText = "";
@@ -116,7 +118,10 @@ function displayLocations() {
           }
       }
       document.getElementById("locations-display-row").innerHTML = s;
-      clickableDisplay();
+        $(".locationC").on("click", function(e) {
+            e.preventDefault();
+            $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
+        });
     });
 
 }
@@ -151,7 +156,10 @@ function displayPlayers() {
             }
         });
         document.getElementById("hud-players").innerHTML = s;
-        clickableDisplay();
+        $(".player").on("click", function(e) {
+            e.preventDefault();
+            $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
+        });
     });
 
 }
@@ -189,9 +197,10 @@ function createRoom(roomID, name, callback) {
                 gamestart: false,
                 firstplayer: 1,
                 location: "",
-                mode: "traditional", //TODO change this
+                mode: "traditional",
                 starttime: {},
-                theme: "general" //TODO change this
+                time:8,
+                theme: "general"
             });
             rooms.doc(roomID).collection("Players").doc("player1").set({id:1, name:name, role:""});
             roomid = roomID;

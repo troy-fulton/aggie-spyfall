@@ -9,7 +9,7 @@ document.getElementById("rule-mode").onchange = function() {
     document.getElementById("rule-leader").style.display = "block";
     document.getElementById("rule-traditional").style.display = "none";
   }
-}
+};
 
 var rulesActive = false;
 $("#rules").on("click", function(e) {
@@ -28,7 +28,41 @@ $("#close-rule-display").on("click", function(e) {
   }
 });
 
+var optionsActive = false;
+$("#waiting-setting").on('click', function (e) {
+   e.preventDefault();
+   optionsActive = true;
+   document.getElementById("waiting-options").style.display = "block";
+});
 
+$("#waiting-options-close").on('click', function (e) {
+    e.preventDefault();
+    optionsActive = false;
+    document.getElementById("waiting-options").style.display = "none";
+    document.getElementById("option-time").value = timeTimer;
+    document.getElementById("option-mode").value = mode;
+    document.getElementById("option-theme").value = theme;
+});
+
+$("#option-cancel-button").on('click', function (e) {
+    e.preventDefault();
+    optionsActive = false;
+    document.getElementById("waiting-options").style.display = "none";
+    document.getElementById("option-time").value = timeTimer;
+    document.getElementById("option-mode").value = mode;
+    document.getElementById("option-theme").value = theme;
+});
+
+$("#option-save-button").on('click', function(e){
+   e.preventDefault();
+   var m = document.getElementById("option-mode").value;
+   var t = document.getElementById("option-time").value;
+   var th = document.getElementById("option-theme").value;
+
+   rooms.doc(roomid).update({mode:m,time:t,theme:th});
+   optionsActive = false;
+   document.getElementById("waiting-options").style.display = "none";
+});
 
 document.getElementById("start-create-roomid").addEventListener('input', function (evt) {
     document.getElementById("start-create-error").innerText = "";
@@ -65,11 +99,17 @@ document.getElementById("start-join-name").addEventListener('input', function (e
 
 
 function joinGameDisplay() {
+    rulesActive = false;
+    document.getElementById("rule-display").style.display = "none";
+
     document.getElementById("start-buttons").style.display = "none";
     document.getElementById("start-join-display").style.display = "block";
 }
 
 function createGameDisplay() {
+    rulesActive = false;
+    document.getElementById("rule-display").style.display = "none";
+
     document.getElementById("start-buttons").style.display = "none";
     document.getElementById("start-create-display").style.display = "block";
 }
@@ -92,6 +132,7 @@ $(".start-back-button").click(backToStart);
 var name = "";
 var theme = "general";
 var mode = "traditional";
+var timeTimer = 8;
 
 var wListenerPlayer;
 var listenForGameStart;
@@ -160,6 +201,9 @@ function createGame() {
 }
 
 function displayWaitingRoom(){
+    optionsActive = false;
+    document.getElementById("waiting-options").style.display = "none";
+
     document.getElementById("waiting-room").style.display = "block";
     document.getElementById("wait-roomCode").innerText = roomid;
 
@@ -235,7 +279,7 @@ function displayWaitingRoom(){
     });
 
     listenForGameStart = rooms.doc(roomid).onSnapshot((doc)=>{
-
+        console.log("changed");
         if (doc.data().gamestart) {
             document.getElementById("waiting-room").style.display = "none";
             document.getElementById("screen").style.display = "block";
@@ -244,7 +288,17 @@ function displayWaitingRoom(){
             wListenerPlayer();
             listenForGameStart();
         }
+
+        document.getElementById("option-mode").value = doc.data().mode;
+        document.getElementById("option-time").value = doc.data().time;
+        document.getElementById("option-theme").value = doc.data().theme;
+        mode = doc.data().mode;
+        timeTimer = doc.data().time;
+        theme = doc.data().theme;
+
     });
+
+
 }
 
 $("#start-join-game-button").click(joinGame);
@@ -252,29 +306,38 @@ $("#start-create-game-button").click(createGame);
 
 
 
-//TODO make reset method for clearing all displays and values from input fields
 //TODO make change name display in waiting-room
 
 function startGame() {
-    rooms.doc(roomid).get().then((doc)=>{
-        rooms.doc(roomid).collection("Players").get().then((col)=>{
-            if (col.size==1) return;
-            var a = new Date();
-            var l = getRandomLocation(theme);
-            var newRoles = getRandomRoles(theme, l, col.size);
-            for (var i = 1; i < col.size+1; i++) {
-                if (i == col.size) {
-                  rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]}).then(()=>{
+    var minP = 2;
+    switch(mode) {
+        case "traditional":
+            minP = 2;
+            break;
+        case "leader":
+            minP=3;
+            break;
+    }
+    console.log(minP);
+    rooms.doc(roomid).collection("Players").get().then((col)=>{
+        if (col.size<minP) return;
+        optionsActive = false;
+        document.getElementById("waiting-options").style.display = "none";
+        var a = new Date();
+        var l = getRandomLocation(theme);
+        var newRoles = getRandomRoles(mode, theme, l, col.size);
+        for (var i = 1; i < col.size+1; i++) {
+            if (i == col.size) {
+                rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]}).then(()=>{
                     rooms.doc(roomid).update({
                         firstplayer: parseInt(Math.random() * (col.size - 1)) + 1,
                         location: l,
                         starttime: {hour:a.getHours(), min:a.getMinutes(), sec:a.getSeconds()},
                         gamestart:true
                     });
-                  });
-                } else rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]});
-            }
-        });
+                });
+            } else rooms.doc(roomid).collection("Players").doc("player"+i).update({role: newRoles[i-1]});
+        }
     });
 }
 

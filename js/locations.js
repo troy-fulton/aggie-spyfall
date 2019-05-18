@@ -59,9 +59,20 @@ var generalLocation = [
     }
 ];
 
-function getRandomRoles(t, l, numPlayers) {
+function getRandomRoles(m, t, l, numPlayers) {
+
     var a = shuffle(getLocationInfo(t, l).roles);
-    a[parseInt(Math.random()*numPlayers)] = "Spy";
+    if (m=="traditional") {
+        a[parseInt(Math.random()*numPlayers)] = "Spy";
+    } else if (m=="leader") {
+        var sIdx = parseInt(Math.random()*numPlayers);
+        var mIdx = 0;
+        do {
+            mIdx = parseInt(Math.random()*numPlayers);
+        } while(mIdx == sIdx);
+        a[sIdx] = "Spy";
+        a[mIdx] = "Leader";
+    }
     return a;
 }
 

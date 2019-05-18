@@ -38,6 +38,7 @@
 .locationC {
   text-align: center;
   padding: 2px;
+  z-index: 1;
 }
 .locationC > div {
   background-color: #f4f4f4;
@@ -48,6 +49,7 @@
 .player {
   text-align: center;
   padding: 3px 2px;
+  z-index: 1;
 }
 .player > div {
   background-color: #f4f4f4;
