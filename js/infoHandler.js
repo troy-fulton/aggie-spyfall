@@ -21,12 +21,13 @@ $("#info-container").on("touchend", function(e) {
     }
 });
 
-document.addEventListener("keydown", function(e) {
+
+function spaceDown(e) {
     if (e.code != "Space") return;
     e.preventDefault();
     hideInfo();
     document.getElementById("info-help-pc").innerText = (infoVisible)?"Space to hide":"Space to show";
-});
+}
 
 function hideInfo() {
     infoVisible = !infoVisible;

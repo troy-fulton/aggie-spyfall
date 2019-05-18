@@ -11,6 +11,7 @@ var nameID = ""; // this will be the player's number (each player is numbered ba
 
 function endGame() {
     rooms.doc(roomid).update({gamestart:false});
+    document.removeEventListener("keydown", spaceDown);
 }
 
 function leaveGame() {
@@ -45,6 +46,7 @@ function displayInfo() {
     document.getElementById("spy-leader").innerText = "";
     document.getElementById("locations-display-row").innerHTML = "";
     document.getElementById("hud-players").innerHTML = "";
+    document.addEventListener("keydown", spaceDown);
 
     new Promise(resolve => {
         rooms.doc(roomid).get().then((doc)=>{
