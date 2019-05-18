@@ -12,6 +12,7 @@ function endGame() {
     rooms.doc(roomid).update({gamestart:false});
     //TODO reset everything
     //check if the nameID of each player needs to be reset. (If a player leaves midgame)
+
 }
 
 function leaveGame() {
@@ -37,7 +38,7 @@ var mode = "";
 var startTime;
 var time = 8; //in minutes
 
-
+var listenForGameEnd, listenForPlayerLeave, listenForLocationChange;
 
 function displayInfo() {
 
@@ -48,7 +49,43 @@ function displayInfo() {
             theme = doc.data().theme;
             mode = doc.data().mode;
             startTime = doc.data().starttime;
+
+
+            listenForGameEnd = rooms.doc(roomid).onSnapshot((doc)=> {
+
+                if (!doc.data().gamestart) {
+                    document.getElementById("screen").style.display = "none";
+                    toggleInfo("hidden");
+                    clearInterval(timerInterval);
+                    spyRole = "";
+                    spyLocation = "";
+                    listenForGameEnd();
+                    listenForPlayerLeave();
+                    displayWaitingRoom();
+                }
+
+            });
+
+            listenForPlayerLeave = rooms.doc(roomid).collection("Players").onSnapshot((col)=> {
+                col.docChanges().forEach((change) => {
+                    if (change.type == "removed") {
+                        if (change.doc.data().id != nameID) {
+                            if (change.doc.data().id < nameID) {
+                                nameID--;
+                                rooms.doc(roomid).collection("Players").doc("player" + (parseInt(nameID) + 1)).delete();
+                                rooms.doc(roomid).collection("Players").doc("player" + nameID).set({
+                                    id: nameID,
+                                    name: name,
+                                    role: spyRole
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
             resolve();
+
         });
     }).then((res)=>{
         if (mode=="traditional") displayPlayers();
@@ -64,7 +101,10 @@ function displayLocations() {
       spyRole = doc.data().role;
       document.getElementById("spy-role").innerText = spyRole;
       if (spyRole != "Spy") document.getElementById("spy-location").innerText = spyLocation;
-      else spyLocation = "lol u cheater";
+      else {
+          spyLocation = "lol u cheater";
+          document.getElementById("spy-location").innerText = "";
+      }
 
       hideInfo();
 
