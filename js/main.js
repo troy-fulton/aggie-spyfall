@@ -2,6 +2,7 @@
 
 var spyRole = "";
 var spyLocation = "";
+var spyLeader = "";
 
 var roomid = "";
 var nameID = ""; // this will be the player's number (each player is numbered based on when they join the game)
@@ -31,6 +32,7 @@ $("#leave-game-button").on('click', leaveGame);
 var firstplayer = 1;
 var theme = "";
 var mode = "";
+var numPlayers = 0;
 
 var startTime;
 var time = 8; //in minutes
@@ -38,6 +40,11 @@ var time = 8; //in minutes
 var listenForGameEnd, listenForPlayerLeave, listenForLocationChange;
 
 function displayInfo() {
+    document.getElementById("spy-role").innerText = "";
+    document.getElementById("spy-location").innerText = "";
+    document.getElementById("spy-leader").innerText = "";
+    document.getElementById("locations-display-row").innerHTML = "";
+    document.getElementById("hud-players").innerHTML = "";
 
     new Promise(resolve => {
         rooms.doc(roomid).get().then((doc)=>{
@@ -67,17 +74,27 @@ function displayInfo() {
             listenForPlayerLeave = rooms.doc(roomid).collection("Players").onSnapshot((col)=> {
                 col.docChanges().forEach((change) => {
                     if (change.type == "removed") {
-                        if (change.doc.data().id != nameID) {
+                        if (change.doc.data().id != nameID && change.doc.data().role != spyRole) {
                             if (change.doc.data().id < nameID) {
-                                nameID--;
-                                rooms.doc(roomid).collection("Players").doc("player" + (parseInt(nameID) + 1)).delete();
-                                rooms.doc(roomid).collection("Players").doc("player" + nameID).set({
-                                    id: nameID,
-                                    name: name,
-                                    role: spyRole
-                                });
-                            }
-                            displayPlayers();
+                                if (nameID == numPlayers) {
+                                    nameID--;
+                                    rooms.doc(roomid).collection("Players").doc("player"+nameID).set({
+                                        id: nameID,
+                                        name: name,
+                                        role: spyRole
+                                    }).then(()=>{
+                                        rooms.doc(roomid).collection("Players").doc("player" + numPlayers).delete();
+                                        displayPlayers();
+                                    });
+                                } else {
+                                    nameID--;
+                                    rooms.doc(roomid).collection("Players").doc("player"+nameID).set({
+                                        id: nameID,
+                                        name: name,
+                                        role: spyRole
+                                    }).then(()=>{displayPlayers();});
+                                }
+                            } else displayPlayers();
                         }
                     }
                 });
@@ -96,35 +113,56 @@ function displayInfo() {
 // for some reason, that doesn't happen
 
 function displayLocations() {
-    rooms.doc(roomid).collection("Players").doc("player"+nameID).get().then((doc)=>{
-      spyRole = doc.data().role;
-      document.getElementById("spy-role").innerText = spyRole;
-      if (spyRole != "Spy" && spyRole != "Leader") document.getElementById("spy-location").innerText = spyLocation;
-      else {
-          spyLocation = "lol u cheater";
-          document.getElementById("spy-location").innerText = "";
-      }
 
-      toggleInfo("hidden");
+    new Promise(resolve => {
+        if (mode != "leader") resolve();
+        rooms.doc(roomid).collection("Players").get().then((col)=>{
+           col.forEach((doc)=>{
+             if (doc.data().role == "Leader") resolve(doc.data().name);
+           });
+           resolve("");
+        });
+    }).then((res)=>{
+        spyLeader = res;
+        rooms.doc(roomid).collection("Players").doc("player"+nameID).get().then((doc)=>{
+            spyRole = doc.data().role;
+            document.getElementById("spy-role").innerText = spyRole;
+            if (spyRole != "Spy" && spyRole != "Leader") {
+                document.getElementById("spy-location").innerText = spyLocation;
+                if (mode=="leader") {
+                    document.getElementById("spy-leader").innerText = res;
+                }
+            }
+            else {
+                spyLocation = "lol u cheater";
+                if (mode=="leader") spyLeader = "not today ;)";
+                document.getElementById("spy-location").innerText = "";
+            }
 
-      var s = "";
-      if (theme=="general") {
-          for (var loc of generalLocation) {
-             s += "<div class=\"col-6 locationC\">" +
-                 "<div>"+loc.location+"</div></div>"
-          }
-      }
-      document.getElementById("locations-display-row").innerHTML = s;
-        $(".locationC").on("click", function(e) {
-            e.preventDefault();
-            $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
+            toggleInfo("hidden");
+
+            var s = "";
+            if (theme=="general") {
+                for (var loc of generalLocation) {
+                    s += "<div class=\"col-6 locationC\">" +
+                        "<div>"+loc.location+"</div></div>"
+                }
+            }
+            document.getElementById("locations-display-row").innerHTML = s;
+            $(".locationC").on("click", function(e) {
+                e.preventDefault();
+                $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
+            });
         });
     });
+
+
 }
 
 function displayPlayers() {
     var s ="";
     rooms.doc(roomid).collection("Players").get().then((col)=>{
+        numPlayers = col.size;
         col.forEach((doc)=>{
             if (nameID == doc.data().id) {
                 spyRole = doc.data().role;

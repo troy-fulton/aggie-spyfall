@@ -232,7 +232,7 @@ function displayWaitingRoom(){
 
     document.getElementById("waiting-room").style.display = "block";
     document.getElementById("wait-roomCode").innerText = roomid;
-
+    document.getElementById("waiting-player-list").innerHTML="";
 
     rooms.doc(roomid).collection("Players").get().then((col)=>{
         var s = "";
@@ -265,56 +265,80 @@ function displayWaitingRoom(){
     });
 
     wListenerPlayer = rooms.doc(roomid).collection("Players").onSnapshot((col)=>{
+        new Promise(resolve=>{
+            col.docChanges().forEach((change)=>{
+                if (change.type=="removed"){
+                    if (change.doc.data().id==nameID) {
+                        if (col.size==0) {
+                            rooms.doc(roomid).delete().then(()=>{
+                                location.reload();
+                            })
+                        } else location.reload();
+                    } else {
+                        var currNumPlayers = col.size;
+                        if (change.doc.data().id < nameID) {
+                            if (nameID == currNumPlayers+1) {
+                                nameID--;
+                                rooms.doc(roomid).collection("Players").doc("player" + (currNumPlayers+1)).delete()
+                                    .then(()=>{
+                                        rooms.doc(roomid).collection("Players").doc("player" + nameID).set({
+                                            id: nameID,
+                                            name: name,
+                                            role: ""
+                                        }).then(() => {
+                                            resolve();
+                                        });
+                                    });
+                            } else {
+                                nameID--;
+                                rooms.doc(roomid).collection("Players").doc("player" + nameID).set({
+                                    id: nameID,
+                                    name: name,
+                                    role: ""
+                                }).then(()=>{resolve();});
+                            }
+                        } else resolve();
+                    }
+                }
+                else resolve();
+            });
+        }).then((res)=>{
+            rooms.doc(roomid).collection("Players").get().then((col2)=>{
+                var s = "";
+                col2.forEach((doc2)=>{
+                    if (nameID == doc2.data().id) {
+                        s += "<li class=\"col-12 waiting-player\">" +
+                            doc2.data().name + " (You)" +
+                            "<span class=\"editName\">" +
+                            "<i class=\"fas fa-pencil-alt\" data-id='"+doc2.data().id+"'></i></span></li>";
+                    } else {
+                        s += "<li class=\"col-12 waiting-player\">" +
+                            doc2.data().name +
+                            "<span class=\"editName\">" +
+                            "<i class=\"fas fa-times\" data-id='"+doc2.data().id+"'></i></span></li>";
+                    }
+                });
 
-        col.docChanges().forEach((change)=>{
-           if (change.type=="removed"){
-               if (change.doc.data().id==nameID) {
-                    if (col.size==0) {
-                        rooms.doc(roomid).delete().then(()=>{
-                            location.reload();
-                        })
-                    } else location.reload();
-               } else {
-                   if (change.doc.data().id < nameID) {
-                       nameID--;
-                       rooms.doc(roomid).collection("Players").doc("player"+(parseInt(nameID)+1)).delete();
-                       rooms.doc(roomid).collection("Players").doc("player"+nameID).set({id:nameID, name:name, role:""});
-                   }
-               }
-           }
+                document.getElementById("waiting-player-list").innerHTML = s;
+
+                $(".fa-times").on("click", function(e) {
+                    e.preventDefault();
+                    rooms.doc(roomid).collection("Players").doc("player"+$(this).attr("data-id")).delete();
+                });
+
+                $(".fa-pencil-alt").on('click', function(e){
+                    e.preventDefault();
+                    nameChangeActive = true;
+                    document.getElementById("change-name").style.display = "block";
+                });
+            });
+
         });
 
-        var s = "";
-        col.forEach((doc)=>{
-            if (nameID == doc.data().id) {
-                s += "<li class=\"col-12 waiting-player\">" +
-                    doc.data().name + " (You)" +
-                    "<span class=\"editName\">" +
-                    "<i class=\"fas fa-pencil-alt\" data-id='"+doc.data().id+"'></i></span></li>";
-            } else {
-                s += "<li class=\"col-12 waiting-player\">" +
-                    doc.data().name +
-                    "<span class=\"editName\">" +
-                    "<i class=\"fas fa-times\" data-id='"+doc.data().id+"'></i></span></li>";
-            }
-        });
 
-        document.getElementById("waiting-player-list").innerHTML = s;
-
-        $(".fa-times").on("click", function(e) {
-            e.preventDefault();
-            rooms.doc(roomid).collection("Players").doc("player"+$(this).attr("data-id")).delete();
-        });
-
-        $(".fa-pencil-alt").on('click', function(e){
-            e.preventDefault();
-            nameChangeActive = true;
-            document.getElementById("change-name").style.display = "block";
-        });
     });
 
     listenForGameStart = rooms.doc(roomid).onSnapshot((doc)=>{
-        console.log("changed");
         if (doc.data().gamestart) {
             document.getElementById("waiting-room").style.display = "none";
             document.getElementById("screen").style.display = "block";
@@ -347,13 +371,12 @@ function startGame() {
     var minP = 2;
     switch(mode) {
         case "traditional":
-            minP = 2;
+            minP = 3;
             break;
         case "leader":
-            minP=3;
+            minP=4;
             break;
     }
-    console.log(minP);
     rooms.doc(roomid).collection("Players").get().then((col)=>{
         if (col.size<minP) return;
         optionsActive = false;

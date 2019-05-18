@@ -62,7 +62,7 @@
 .firstDisplay {
   position: absolute;
   font-size: 10px;
-  top: 3%;
+  top: 5%;
   left: 1%;
   color:red;
   line-height: 8px;
@@ -139,7 +139,7 @@
 
 @media only screen and (min-width: 600px) {
   #info-container {
-    height: 110px;
+    height: 140px;
     width: 50%;
   }
   #info-help-pc {

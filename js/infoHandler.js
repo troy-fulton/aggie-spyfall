@@ -4,6 +4,7 @@ var infoVisible = true;
 $("#info-container").dblclick(function(e) {
   e.preventDefault();
     hideInfo();
+    document.getElementById("info-help-pc").innerText = (infoVisible)?"Space to hide":"Space to show";
 });
 
 
@@ -22,6 +23,7 @@ $("#info-container").on("touchend", function(e) {
 
 document.addEventListener("keydown", function(e) {
     if (e.code != "Space") return;
+    e.preventDefault();
     hideInfo();
     document.getElementById("info-help-pc").innerText = (infoVisible)?"Space to hide":"Space to show";
 });
@@ -33,6 +35,7 @@ function hideInfo() {
     document.getElementById("spy-role").innerText = (infoVisible)?spyRole:"";
     if (spyRole != "Spy" && spyRole!="Leader") document.getElementById("spy-location").innerHTML =
         (infoVisible)?"Location: <b>"+spyLocation+"</b>": "";
+    if (mode=="leader" && spyRole != "Spy" && spyRole!="Leader") document.getElementById("spy-leader").innerHTML = (infoVisible)?"Leader: <b>"+spyLeader+"</b>":"";
     document.getElementById("info-container").style.opacity = (infoVisible)?"1":"0.5";
     document.getElementById("info-help").innerText = (infoVisible)?"Double click to hide":"Double click to show";
 }
@@ -44,6 +47,7 @@ function toggleInfo(state) {
         document.getElementById("spy-role").innerText = (infoVisible)?spyRole:"";
         if (spyRole != "Spy" && spyRole!="Leader") document.getElementById("spy-location").innerHTML =
             (infoVisible)?"Location: <b>"+spyLocation+"</b>": "";
+        if (mode=="leader") document.getElementById("spy-leader").innerHTML = "";
         document.getElementById("info-container").style.opacity = (infoVisible)?"1":"0.5";
         document.getElementById("info-help").innerText = (infoVisible)?"Double click to hide":"Double click to show";
     } else if (state=="visible") {
@@ -52,6 +56,7 @@ function toggleInfo(state) {
         document.getElementById("spy-role").innerText = (infoVisible)?spyRole:"";
         if (spyRole != "Spy" && spyRole!="Leader") document.getElementById("spy-location").innerHTML =
             (infoVisible)?"Location: <b>"+spyLocation+"</b>": "";
+        if (mode=="leader" && spyRole != "Spy" && spyRole!="Leader") document.getElementById("spy-leader").innerHTML = "Leader: <b>"+spyLeader+"</b>";
         document.getElementById("info-container").style.opacity = (infoVisible)?"1":"0.5";
         document.getElementById("info-help").innerText = (infoVisible)?"Double click to hide":"Double click to show";
     }
