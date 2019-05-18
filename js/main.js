@@ -77,6 +77,7 @@ function displayInfo() {
                                     role: spyRole
                                 });
                             }
+                            displayPlayers();
                         }
                     }
                 });
@@ -94,7 +95,6 @@ function displayInfo() {
 //TODO listen for a change in location. Just in case if two people press start at the same time
 // for some reason, that doesn't happen
 
-//TODO remove player from HUD if they leave. create a listener for this
 function displayLocations() {
     rooms.doc(roomid).collection("Players").doc("player"+nameID).get().then((doc)=>{
       spyRole = doc.data().role;
@@ -159,11 +159,6 @@ function displayPlayers() {
     });
 
 }
-
-function displayLeaderPlayers() {
-
-}
-
 
 
 
