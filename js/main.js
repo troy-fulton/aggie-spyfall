@@ -10,9 +10,6 @@ var nameID = ""; // this will be the player's number (each player is numbered ba
 
 function endGame() {
     rooms.doc(roomid).update({gamestart:false});
-    //TODO reset everything
-    //check if the nameID of each player needs to be reset. (If a player leaves midgame)
-
 }
 
 function leaveGame() {
@@ -123,7 +120,6 @@ function displayLocations() {
             $(this).hasClass("strikethrough")? $(this).removeClass("strikethrough"): $(this).addClass("strikethrough");
         });
     });
-
 }
 
 function displayPlayers() {

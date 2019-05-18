@@ -3,7 +3,7 @@
     display:none;
 }
 
-#waiting-options {
+#waiting-options, #change-name {
     position:absolute;
     z-index: 1;
     width: 80%;
@@ -18,7 +18,7 @@
     display:none;
 }
 
-#option-save-button, #option-cancel-button {
+#option-save-button, #option-cancel-button, #change-name-save-button, #change-name-cancel-button {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -27,20 +27,17 @@
     border-radius: 5px;
 }
 
-#waiting-setting:hover {
+#waiting-setting:hover, #change-name-close:hover, #waiting-options-close:hover {
     color:gray;
     cursor: pointer;
 }
 
-#waiting-options-close {
+#waiting-options-close, #change-name-close {
     position: absolute;
     top: 1%;
     right: 5%;
 }
-#waiting-options-close:hover {
-    color:gray;
-    cursor: pointer;
-}
+
 
 #waiting-display {
     position: absolute;
@@ -90,6 +87,7 @@
 
 .editName {
     float: right;
+    z-index: 1;
 }
 
 .editName:hover {
@@ -115,7 +113,7 @@
         border-radius: 5px;
     }
 
-    #waiting-options {
+    #waiting-options, #change-name {
         padding: 20px 100px;
         width:500px;
     }

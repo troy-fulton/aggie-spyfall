@@ -64,6 +64,32 @@ $("#option-save-button").on('click', function(e){
    document.getElementById("waiting-options").style.display = "none";
 });
 
+var nameChangeActive = false;
+
+
+
+$("#change-name-cancel-button").on("click", function(e) {
+   e.preventDefault();
+   nameChangeActive = false;
+    document.getElementById("change-name").style.display = "none";
+    document.getElementById("change-name-name").value = "";
+});
+
+$("#change-name-close").on('click', function (e) {
+    e.preventDefault();
+    nameChangeActive = false;
+    document.getElementById("change-name").style.display = "none";
+    document.getElementById("change-name-name").value = "";
+});
+
+$("#change-name-save-button").on('click', function (e) {
+    e.preventDefault();
+    var n = document.getElementById("change-name-name").value;
+    document.getElementById("change-name-name").value = "";
+    document.getElementById("change-name").style.display = "none";
+    rooms.doc(roomid).collection("Players").doc("player"+nameID).update({name:n});
+});
+
 document.getElementById("start-create-roomid").addEventListener('input', function (evt) {
     document.getElementById("start-create-error").innerText = "";
 
@@ -208,9 +234,6 @@ function displayWaitingRoom(){
     document.getElementById("wait-roomCode").innerText = roomid;
 
 
-    //get roomid from database
-    //display names from database
-    //if nameId of database name equals this nameid then show "(You)" text
     rooms.doc(roomid).collection("Players").get().then((col)=>{
         var s = "";
         col.forEach((doc)=>{
@@ -232,6 +255,12 @@ function displayWaitingRoom(){
         $(".fa-times").on("click", function(e) {
             e.preventDefault();
             rooms.doc(roomid).collection("Players").doc("player"+$(this).attr("data-id")).delete();
+        });
+
+        $(".fa-pencil-alt").on('click', function(e){
+            e.preventDefault();
+            nameChangeActive = true;
+            document.getElementById("change-name").style.display = "block";
         });
     });
 
@@ -275,6 +304,12 @@ function displayWaitingRoom(){
         $(".fa-times").on("click", function(e) {
             e.preventDefault();
             rooms.doc(roomid).collection("Players").doc("player"+$(this).attr("data-id")).delete();
+        });
+
+        $(".fa-pencil-alt").on('click', function(e){
+            e.preventDefault();
+            nameChangeActive = true;
+            document.getElementById("change-name").style.display = "block";
         });
     });
 
