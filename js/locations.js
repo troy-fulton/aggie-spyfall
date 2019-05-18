@@ -56,6 +56,31 @@ var generalLocation = [
       location: "Gas Station",
       roles: ["Biker", "Cyclist", "Cashier", "Customer", "Homeless Man", "Truck Driver",
             "Police Officer", "Drug Dealer", "Stray Dog", "Taxi Driver"]
+    },
+    {
+      location: "Cloud",
+      roles:["Care Bear", "Bird","Rainbow", "Carl Fredrickson", "Sun", "Zeus",
+            "Superman", "Lightning", "Balloon", "Mary Poppins"]
+    },
+    {
+      location: "Atlantis",
+      roles:["Atlantean", "Aquaman", "Poseidon", "Mermaid", "Neptune", "Council Member",
+            "Plankton", "Mermaid Man", "Scuba Diver", "Shark"]
+    },
+    {
+      location: "Rainforest",
+      roles:["Lemur Mort", "Jaguar", "Indiana Jones", "Native", "Cannibal", "Dora the Explorer",
+            "Monkey", "Mosquito", "King Julien", "Skeleton"]
+    },
+    {
+      location: "Suburb",
+      roles:["Homeowner", "Real Estate Agent", "Dog", "Police Officer", "Parent",
+            "Mayor", "City Council Member", "Garbage Truck Driver", "Gardener", "Drug Dealer"]
+    },
+    {
+      location: "Space Station",
+      roles:["Doctor", "Alien", "Astronaut", "Researcher", "Electrician", "Scientist",
+            "Radioman", "Asteroid", "Engineer", "Pilot"]
     }
 ];
 
