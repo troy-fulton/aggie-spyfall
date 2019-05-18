@@ -106,7 +106,7 @@ function displayLocations() {
           document.getElementById("spy-location").innerText = "";
       }
 
-      hideInfo();
+      toggleInfo("hidden");
 
       var s = "";
       if (theme=="general") {
