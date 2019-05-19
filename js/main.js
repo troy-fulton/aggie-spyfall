@@ -52,6 +52,18 @@ function displayInfo() {
         rooms.doc(roomid).get().then((doc)=>{
             firstplayer = doc.data().firstplayer;
             spyLocation = doc.data().location;
+
+
+            var locArr = JSON.parse(sessionStorage.getItem("locations"));
+            if (locArr==null || !Array.isArray(locArr)) {
+                sessionStorage.setItem("locations", JSON.stringify([spyLocation]));
+            } else {
+                if (!locArr.includes(spyLocation)){
+                    locArr.push(spyLocation);
+                    sessionStorage.setItem("locations", JSON.stringify(locArr));
+                }
+            }
+
             theme = doc.data().theme;
             mode = doc.data().mode;
             time = doc.data().time;

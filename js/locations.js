@@ -143,12 +143,41 @@ function shuffle(a) {
 }
 
 function getRandomLocation(t) {
+    var a;
     switch(t) {
         case "general":
-            return generalLocation[parseInt(Math.random()*generalLocation.length)].location;
+            a = generalLocation.slice();
+            break;
     }
+
+    var newL = "";
+    var sArr = JSON.parse(sessionStorage.getItem("locations"));
+    if (sArr == null || !Array.isArray(sArr)) return a[parseInt(Math.random()*a.length)].location;
+
+    var c = 0;
+    var randN = parseInt(Math.random()*a.length/4 + a.length/3);
+    do {
+        newL = a[parseInt(Math.random()*a.length)].location;
+        if (containsAllElements(a, sArr) || c>=a.length) {
+            c=0;
+            for (var i=0; i < a.length; i++) {
+                sArr.remove(a[i].location);
+            }
+            sessionStorage.setItem("locations", JSON.stringify(sArr));
+        } else if (c >= randN) {
+            return newL;
+        }
+        c++;
+    } while (sArr.includes(newL));
+    return newL;
 }
 
+function containsAllElements(a1, a2) {
+    for (var i = 0; i < a1.length; i++) {
+        if (!a2.includes(a1[i]))return false;
+    }
+    return true;
+}
 
 function getLocationInfo(theme, name) {
     switch(theme) {
@@ -165,3 +194,15 @@ function getIndexOfLocation(arr, name) {
     }
     return -1;
 }
+
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};

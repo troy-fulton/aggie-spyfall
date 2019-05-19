@@ -11,6 +11,25 @@ document.getElementById("rule-mode").onchange = function() {
   }
 };
 
+$("#start-join-roomid").on({
+    keydown: function(e) {
+        if (e.which === 32)
+            return false;
+    },
+    change: function() {
+        this.value = this.value.replace(/\s/g, "");
+    }
+});
+$("#start-create-roomid").on({
+    keydown: function(e) {
+        if (e.which === 32)
+            return false;
+    },
+    change: function() {
+        this.value = this.value.replace(/\s/g, "");
+    }
+});
+
 var rulesActive = false;
 $("#rules").on("click", function(e) {
   e.preventDefault();
