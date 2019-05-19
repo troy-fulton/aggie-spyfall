@@ -81,6 +81,36 @@ var generalLocation = [
       location: "Space Station",
       roles:["Doctor", "Alien", "Astronaut", "Researcher", "Electrician", "Scientist",
             "Radioman", "Asteroid", "Engineer", "Pilot"]
+    },
+    {
+      location: "Library",
+      roles:["Bookworm", "Librarian", "Teenager", "Parent", "Child", "Mayor",
+            "College Student", "Janitor", "Counselor", "Chess Tutor", "Tutor"]
+    },
+    {
+      location: "Mariana Trench",
+      roles:["Kraken", "Godzilla", "Megalodon", "Leviathan", "Jaws", "Moby Dick", "Sea Serpent",
+            "Goblin Shark", "Angular Fish", "Gulper Eel", "Vampire Squid", "Dumbo Octopus"]
+    },
+    {
+      location: "Train",
+      roles:["Passenger", "Engineer", "Conductor", "Businessman", "First Class Passenger", "Stowaway", "Service Attendant",
+            "Trainman", "Brakeman", "Crew Member"]
+    },
+    {
+      location: "National Park",
+      roles:["Park Ranger", "Tourist", "Hiker", "Camper", "Maintenance Worker",
+            "Equipment Operator", "First Aid Personnel", "Vehicle Operator", "Park Guide", "Utility Operator"]
+    },
+    {
+      location: "Ski Resort",
+      roles:["Skier", "Lift Operator", "Ski Instructor", "Lodger", "First Aid Personnel", "Equipment Mechanic",
+            "Ski Patroller", "Food Vendor", "Manager", "Snowboarder"]
+    },
+    {
+      location: "Music Festival",
+      roles:["Pop Star", "Dancer", "Audio Technician", "DJ", "Teenager", "Bartender",
+            "Backup Singer", "Security", "Supervisor", "Limousine Driver"]
     }
 ];
 
