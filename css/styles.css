@@ -154,7 +154,8 @@
     width: 40%;
   }
   #locations-display {
-    width:30%;
+    width:35%;
+    min-width: 420px;
   }
 
   #spy-role {
