@@ -39,7 +39,7 @@ var startTime;
 var time = 8; //in minutes
 
 var listenForGameEnd, listenForPlayerLeave, listenForLocationChange;
-
+var continualIntervalCheck;
 function displayInfo() {
     document.getElementById("spy-role").innerText = "";
     document.getElementById("spy-location").innerText = "";
@@ -69,7 +69,7 @@ function displayInfo() {
             time = doc.data().time;
             startTime = doc.data().starttime;
 
-
+            /*
             listenForGameEnd = rooms.doc(roomid).onSnapshot((doc)=> {
 
                 if (!doc.data().gamestart) {
@@ -84,6 +84,29 @@ function displayInfo() {
                 }
 
             });
+            */
+
+            continualIntervalCheck = setInterval(function() {
+                rooms.doc(roomid).get().then((doc)=>{
+                    if (!doc.data().gamestart) {
+                        document.getElementById("screen").style.display = "none";
+                        toggleInfo("hidden");
+                        clearInterval(timerInterval);
+                        clearInterval(continualIntervalCheck);
+                        spyRole = "";
+                        spyLocation = "";
+                        //listenForGameEnd();
+                        listenForPlayerLeave();
+                        displayWaitingRoom();
+                    } else if (spyLocation != doc.data().location) {
+                        listenForPlayerLeave();
+                        clearInterval(timerInterval);
+                        clearInterval(continualIntervalCheck);
+                        toggleInfo("hidden");
+                        displayInfo();
+                    }
+                });
+            }, 600);
 
             listenForPlayerLeave = rooms.doc(roomid).collection("Players").onSnapshot((col)=> {
                 col.docChanges().forEach((change) => {
@@ -148,7 +171,7 @@ function displayLocations() {
                 }
             }
             else {
-                spyLocation = "lol u cheater";
+                //spyLocation = "lol u cheater";
                 if (mode=="leader") spyLeader = "not today ;)";
                 document.getElementById("spy-location").innerText = "";
             }
