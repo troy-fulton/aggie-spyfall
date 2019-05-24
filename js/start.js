@@ -401,6 +401,7 @@ function startGame() {
         optionsActive = false;
         document.getElementById("waiting-options").style.display = "none";
         var a = new Date();
+        numPlayers = col.size;
         var l = getRandomLocation(theme);
         var newRoles = getRandomRoles(mode, theme, l, col.size);
         for (var i = 1; i < col.size+1; i++) {
