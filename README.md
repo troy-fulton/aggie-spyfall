@@ -1,4 +1,4 @@
-# spyfall.cf
+# https://spyfall.cf
 Based of the fan-made spyfall game at https://spyfall.crabhat.com/
 
 
